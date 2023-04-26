@@ -23,9 +23,17 @@ export default function App() {
       <View>
         <Text>Let us get to know you</Text>
       </View>
-      <View>
-        <TextInput placeholder="First Name"/>
-        <TextInput placeholder="Email"/>
+      <View style={styles.inputMain} accessible={true}>
+        <View style={styles.inputContainer}>
+          <TextInput styles={styles.input} placeholder="First Name" />
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            styles={styles.input}
+            placeholder="Email"
+            keyboardType="email-address"
+          />
+        </View>
       </View>
 
       <View style={styles.button}>
@@ -42,6 +50,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
   title: {
     fontSize: 64,
   },
@@ -49,11 +58,23 @@ const styles = StyleSheet.create({
     fontFamily: "Markazy-Text",
     fontWeight: "900",
   },
-  button:{
-    width: '20%',
-    backgroundColor: 'grey',
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+  },
+  inputMain: {
+    width: "80%",
+  },
+  inputContainer: {
+    backgroundColor: "yellow",
+  },
+  button: {
+    width: "20%",
+    backgroundColor: "grey",
     padding: 15,
     borderRadius: 10,
-    alignItems:'center'
-  }
+    alignItems: "center",
+  },
 });
