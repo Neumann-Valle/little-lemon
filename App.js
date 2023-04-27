@@ -25,13 +25,21 @@ export default function App() {
       </View>
       <View style={styles.inputMain} accessible={true}>
         <View style={styles.inputContainer}>
-          <TextInput styles={styles.input} placeholder="First Name" />
+          <TextInput styles={styles.input}
+            placeholder="First Name"
+            autoComplete="off"
+            maxLength={15}
+            placeholderTextColor={'blue'} />
         </View>
         <View style={styles.inputContainer}>
           <TextInput
+            color
             styles={styles.input}
+            placeholderTextColor={'blue'}
             placeholder="Email"
             keyboardType="email-address"
+            autoComplete='off'
+            maxLength={15}
           />
         </View>
       </View>
@@ -49,6 +57,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    gap: 15
   },
 
   title: {
@@ -68,11 +77,16 @@ const styles = StyleSheet.create({
     width: "80%",
   },
   inputContainer: {
-    backgroundColor: "yellow",
+    backgroundColor: "grey",
+    borderRadius:10,
+    marginBottom:10,
+    padding: 15,
   },
   button: {
-    width: "20%",
+    alignSelf:'flex-end',
+    width: "30%",
     backgroundColor: "grey",
+    marginRight: 43,
     padding: 15,
     borderRadius: 10,
     alignItems: "center",
