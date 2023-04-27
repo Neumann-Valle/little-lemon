@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Image, TextInput } from "react-native";
 import { useFonts } from "expo-font";
 import Onboarding from "./screens/Onboarding";
-// import logo from "./assets/logo.png";
+import logo from "./assets/Logo.png";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -16,11 +16,13 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <View>
-        {/* <Image source={logo}/> */}
-        <Text style={styles.title}>Little Lemon</Text>
+      <View style={styles.logoContainer}>
+        <Image source={logo}
+        resizeMode="cover"
+          style={styles.image}
+        />
       </View>
-      <View>
+      <View style={styles.subTitle}>
         <Text>Let us get to know you</Text>
       </View>
       <View style={styles.inputMain} accessible={true}>
@@ -59,13 +61,24 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     gap: 15
   },
-
+  logoContainer: {
+    // backgroundColor: 'olive',
+    marginBottom: 50,
+  },
   title: {
     fontSize: 64,
+  },
+  image: {
+    // width: '100%',
   },
   innerText: {
     fontFamily: "Markazy-Text",
     fontWeight: "900",
+  },
+  subTitle: {
+    fontFamily: "Markazy-Text",
+    fontWeight: "900",
+    marginBottom: 50,
   },
   input: {
     height: 40,
@@ -78,12 +91,12 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     backgroundColor: "grey",
-    borderRadius:10,
-    marginBottom:10,
+    borderRadius: 10,
+    marginBottom: 10,
     padding: 15,
   },
   button: {
-    alignSelf:'flex-end',
+    alignSelf: 'flex-end',
     width: "30%",
     backgroundColor: "grey",
     marginRight: 43,
