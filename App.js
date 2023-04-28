@@ -1,30 +1,43 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  Pressable,
-  Platform,
-  KeyboardAvoidingView,
-} from "react-native";
-import { useFonts } from "expo-font";
-import Onboarding from "./screens/Onboarding";
-import logo from "./assets/Logo.png";
-import safeareaStyle from "./utilities/Safearea.style.component";
 import { useEffect, useState } from "react";
-import isvalid_email from "./utilities/validate.email";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import HomeScreen from "./screens/HomeScreen";
+import SplashScreen from "./screens/SplashScreen";
+import OnboardingScreen from "./screens/OnboardingScreen";
+import fetchCredentials from "./utilities/fetch.credentials";
+import ProfileScreen from "./screens/ProfileScreen";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [onboardingDone, setOnboardingDone] = useState(false);
   useEffect(() => {
-    // get data from sqlite
-    setOnboardingDone(true);
-    console.log("loaded");
+    (async () => {
+      const res = await fetchCredentials();
+      if (res.logged) {
+        setOnboardingDone(true);
+      }
+    })();
   }, []);
 
-  if (!onboardingDone) {
-    return null;
+  const props = {
+    name: "Onboarding",
+    component: OnboardingScreen,
+  };
+
+  if (onboardingDone) {
+    (props.name = "Profile"), (props.component = ProfileScreen);
   }
-  return <Onboarding />;
+
+  if (!onboardingDone) {
+    return <SplashScreen />;
+  }
+
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name={props.name} component={props.component} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
