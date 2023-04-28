@@ -1,11 +1,10 @@
 import { useFonts } from "expo-font";
 import logo from "../assets/Logo.png";
-import safeareaStyle from "../utilities/Safearea.style.component";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import isvalid_email from "../utilities/validate.email";
+import isvalid_name from "../utilities/validate.name";
 import styles from "../components/styles/Onboarding.style";
 import {
-  StyleSheet,
   Text,
   View,
   Image,
@@ -16,6 +15,8 @@ import {
 } from "react-native";
 
 function Onboarding() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [buttonActive, setButtonActive] = useState(false);
   const [fontsLoaded] = useFonts({
     "Markazy-Text": require("../assets/fonts/MarkaziText-Regular.ttf"),
@@ -26,19 +27,43 @@ function Onboarding() {
     return null;
   }
 
-  function onchangeinput(value) {
+  function parseName(name) {
+    if (isvalid_name(name)) {
+      setName(name);
+    } else {
+      setName("");
+    }
+    activateButton();
+  }
+
+  function parseEmail(value) {
     if (isvalid_email(value)) {
+      setEmail(value);
+    } else {
+      setEmail("");
+    }
+    activateButton();
+  }
+
+  function activateButton() {
+    if (name !== "" && email !== "") {
       setButtonActive(true);
     } else {
       setButtonActive(false);
     }
   }
 
+  function nextScreen() {
+    if (!buttonActive) {
+      return;
+    }
+
+    console.log("button pushed");
+  }
+
   const buttonProps = {
     style: buttonActive ? styles.buttonActive : styles.buttonInactive,
-    onPress: () => {
-      console.log("pressing button");
-    },
+    onPress: nextScreen,
   };
 
   const inputLenght = 25;
@@ -62,7 +87,7 @@ function Onboarding() {
             autoComplete="off"
             maxLength={inputLenght}
             placeholderTextColor={"grey"}
-            onChangeText={null}
+            onChangeText={parseName}
           />
         </View>
         <View style={styles.inputContainer}>
@@ -70,11 +95,11 @@ function Onboarding() {
             color
             styles={styles.input}
             placeholderTextColor={"grey"}
-            placeholder="Email"
+            placeholder="Your user@anyemail.com"
             keyboardType="email-address"
             autoComplete="off"
             maxLength={inputLenght}
-            onChangeText={onchangeinput}
+            onChangeText={parseEmail}
           />
         </View>
       </View>
