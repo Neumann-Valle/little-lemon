@@ -4,21 +4,20 @@ import {
   View,
   Image,
   TextInput,
-  SafeAreaView,
   Pressable,
   Platform,
-  Button,
   KeyboardAvoidingView,
-  ScrollView,
 } from "react-native";
 import { useFonts } from "expo-font";
 import Onboarding from "./screens/Onboarding";
 import logo from "./assets/Logo.png";
 import safeareaStyle from "./utilities/Safearea.style.component";
 import { useEffect, useState } from "react";
+import isvalid_email from './utilities/validate.email'
 
 export default function App() {
   const [onboardingDone, setOnboardingDone] = useState(false);
+  const [buttonActive, setButtonActive] = useState(false);
   const [fontsLoaded] = useFonts({
     "Markazy-Text": require("./assets/fonts/MarkaziText-Regular.ttf"),
     "Karla-Regular": require("./assets/fonts/Karla-Regular.ttf"),
@@ -37,6 +36,19 @@ export default function App() {
   if (!onboardingDone) {
     return null;
   }
+
+  function onchangeinput(value) {
+    if (isvalid_email(value)) {
+      setButtonActive(true);
+    }
+  }
+
+
+  const inputLenght = 25;
+
+  // todo this doesnt work
+  styles.button.opacity = buttonActive ? styles.button.opacity = 1.0 : styles.button.opacity;
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "android" ? "padding" : "height"}
@@ -54,8 +66,9 @@ export default function App() {
             styles={styles.input}
             placeholder="First Name"
             autoComplete="off"
-            maxLength={15}
+            maxLength={inputLenght}
             placeholderTextColor={"grey"}
+            onChangeText={null}
           />
         </View>
         <View style={styles.inputContainer}>
@@ -66,7 +79,8 @@ export default function App() {
             placeholder="Email"
             keyboardType="email-address"
             autoComplete="off"
-            maxLength={15}
+            maxLength={inputLenght}
+            onChangeText={onchangeinput}
           />
         </View>
       </View>
