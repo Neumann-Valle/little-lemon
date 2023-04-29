@@ -42,7 +42,7 @@ export default StyleSheet.create({
     width: "80%",
   },
   inputContainer: {
-    backgroundColor: "lightgrey",
+    backgroundColor: "#fff",
     borderRadius: 10,
     marginBottom: 30,
     padding: 15,

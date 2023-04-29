@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, DarkTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/HomeScreen";
 import SplashScreen from "./screens/SplashScreen";
@@ -34,9 +34,13 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={DarkTheme}>
       <Stack.Navigator>
-        <Stack.Screen name={props.name} component={props.component} />
+        <Stack.Screen
+          name={props.name}
+          component={props.component}
+          initialParams={DarkTheme}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

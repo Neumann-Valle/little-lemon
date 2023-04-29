@@ -15,7 +15,7 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 
-function OnboardingScreen(navigator) {
+function OnboardingScreen({ route, navigation }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [buttonActive, setButtonActive] = useState(false);
