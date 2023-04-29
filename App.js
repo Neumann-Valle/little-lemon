@@ -30,7 +30,7 @@ export default function App() {
   }
 
   if (!onboardingDone) {
-    return <SplashScreen />;
+    // return <SplashScreen />;
   }
 
   return (

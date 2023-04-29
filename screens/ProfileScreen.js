@@ -1,25 +1,17 @@
-import { useFonts } from "expo-font";
 import * as React from "react";
 import { View, Text, TextInput, Pressable } from "react-native";
 import styles from "../components/styles/Profile.style";
+import Ctext from '../components/CustomText.component'
 
 function ProfileScreen({ route, navigation }) {
-  const [fontsLoaded] = useFonts({
-    "Markazy-Text": require("../assets/fonts/MarkaziText-Regular.ttf"),
-    "Karla-Regular": require("../assets/fonts/Karla-Regular.ttf"),
-  });
-
-  if (!fontsLoaded) {
-    return null;
-  }
-
   // todo, do propertly themes
   const Theme = route.params;
+
 
   return (
     <View style={styles.profileContainer}>
       <View style={styles.headerSub}>
-        <Text style={styles.profileColorText}>Personal information</Text>
+        <Ctext style={{ fontFamily: 'Markazy-Text', color: 'green', fontSize: 25 }} content={'Personal information'} />
         <Text style={styles.profileColorText}>Avatar</Text>
       </View>
       <View style={styles.inputContainer}>
