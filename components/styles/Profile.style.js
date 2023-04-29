@@ -6,6 +6,9 @@ export default StyleSheet.create({
     backgroundColor: "#121212",
     gap: 15,
   },
+  profileColorText: {
+    color: "rgb(229, 229, 231)",
+  },
   inputContainer: {},
   input: {
     alignSelf: "center",
