@@ -23,15 +23,9 @@ export default StyleSheet.create({
     opacity: 0.5,
     fontSize: 24,
   },
-  image: {
-    // width: '100%',
-  },
-  innerText: {
-    fontFamily: "Markazy-Text",
-  },
-  subTitle: {
-    fontFamily: "Markazy-Text",
-  },
+  image: {},
+  innerText: {},
+  subTitle: {},
   input: {
     height: 40,
     margin: 12,

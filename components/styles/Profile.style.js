@@ -6,8 +6,23 @@ export default StyleSheet.create({
     backgroundColor: "#121212",
     gap: 15,
   },
-  profileColorText: {
+  notifications: {
+    gap: 6,
+  },
+  emailNotificationSub: {
     color: "rgb(229, 229, 231)",
+    fontFamily: "Markazy-Text",
+    fontSize: 18,
+    fontWeight: "800",
+    marginLeft: "10%",
+  },
+  profileText: {
+    color: "rgb(229, 229, 231)",
+    fontFamily: "Karla-Regular",
+    marginLeft: "10%",
+  },
+  headerSub: {
+    gap: 25,
   },
   inputContainer: {},
   input: {
@@ -15,8 +30,7 @@ export default StyleSheet.create({
     width: "80%",
     backgroundColor: "#fff",
     borderRadius: 10,
-    // marginBottom: 30,
-    padding: 5,
+    padding: 2,
     margin: 5,
   },
   logoutButton: {
@@ -46,5 +60,9 @@ export default StyleSheet.create({
     backgroundColor: "green",
     padding: 10,
     borderRadius: 10,
+  },
+  buttonText: {
+    color: "#121212",
+    fontFamily: "Karla-Regular",
   },
 });

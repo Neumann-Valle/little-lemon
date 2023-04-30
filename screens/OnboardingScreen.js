@@ -1,4 +1,3 @@
-import { useFonts } from "expo-font";
 import logo from "../assets/Logo.png";
 import { useState } from "react";
 import isvalid_email from "../utilities/validate.email";
@@ -19,14 +18,6 @@ function OnboardingScreen({ route, navigation }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [buttonActive, setButtonActive] = useState(false);
-  const [fontsLoaded] = useFonts({
-    "Markazy-Text": require("../assets/fonts/MarkaziText-Regular.ttf"),
-    "Karla-Regular": require("../assets/fonts/Karla-Regular.ttf"),
-  });
-
-  if (!fontsLoaded) {
-    return null;
-  }
 
   function parseName(name) {
     if (isvalid_name(name)) {

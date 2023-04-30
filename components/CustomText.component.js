@@ -4,14 +4,14 @@ import { useFonts } from "expo-font";
 
 function CustomText(props) {
 
-    const [fontsLoaded] = useFonts({
-        "Markazy-Text": require("../assets/fonts/MarkaziText-Regular.ttf"),
-        "Karla-Regular": require("../assets/fonts/Karla-Regular.ttf"),
-    });
+    // const [fontsLoaded] = useFonts({
+    //     "Markazy-Text": require("../assets/fonts/MarkaziText-Regular.ttf"),
+    //     "Karla-Regular": require("../assets/fonts/Karla-Regular.ttf"),
+    // });
 
-    if (!fontsLoaded) {
-        return null;
-    }
+    // if (!fontsLoaded) {
+    //     return null;
+    // }
 
     const Styles = props.style || styles.default;
 

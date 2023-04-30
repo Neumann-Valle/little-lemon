@@ -6,11 +6,18 @@ import SplashScreen from "./screens/SplashScreen";
 import OnboardingScreen from "./screens/OnboardingScreen";
 import fetchCredentials from "./utilities/fetch.credentials";
 import ProfileScreen from "./screens/ProfileScreen";
+import { useFonts } from "expo-font";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    "Markazy-Text": require("./assets/fonts/MarkaziText-Regular.ttf"),
+    "Karla-Regular": require("./assets/fonts/Karla-Regular.ttf"),
+  });
+
   const [onboardingDone, setOnboardingDone] = useState(false);
+
   useEffect(() => {
     (async () => {
       const res = await fetchCredentials();
@@ -27,6 +34,10 @@ export default function App() {
 
   if (onboardingDone) {
     (props.name = "Profile"), (props.component = ProfileScreen);
+  }
+
+  if (!fontsLoaded) {
+    return null;
   }
 
   if (!onboardingDone) {
