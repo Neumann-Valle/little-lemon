@@ -6,14 +6,51 @@ export default StyleSheet.create({
     backgroundColor: "#121212",
     gap: 15,
   },
+  backgroundImage: {
+    // flex: 1,
+    // justifyContent: "center",
+  },
   notifications: {
     gap: 6,
+  },
+  avatarContainer: {
+    flexDirection: "row",
+    // justifyContent: "space-evenly",
+    alignItems: "center",
+    marginLeft: "10%",
+    gap: 20,
+  },
+  profileAvatar: {
+    width: 70,
+    height: 70,
+    borderRadius: 30,
+  },
+  avatarButtonChange: {
+    alignItems: "center",
+    backgroundColor: "#495E57",
+    padding: 10,
+    borderRadius: 10,
+  },
+  avatarButtonRemove: {
+    alignItems: "center",
+    backgroundColor: "#fff",
+    padding: 10,
+    borderRadius: 10,
+  },
+  avatarButtonText: {
+    color: "black",
+    fontFamily:'Karla-Regular'
   },
   emailNotificationSub: {
     color: "rgb(229, 229, 231)",
     fontFamily: "Markazy-Text",
     fontSize: 18,
     fontWeight: "800",
+    marginLeft: "10%",
+  },
+  section: {
+    flexDirection: "row",
+    alignItems: "center",
     marginLeft: "10%",
   },
   profileText: {
@@ -38,11 +75,12 @@ export default StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     backgroundColor: "#F4CE14",
-    padding: 15,
+    padding: 6,
     borderRadius: 10,
   },
   doubleButton: {
     marginTop: 15,
+    paddingBottom:15,
     flexDirection: "row",
     justifyContent: "center",
     gap: 20,
@@ -51,14 +89,14 @@ export default StyleSheet.create({
     alignItems: "center",
     width: "35%",
     backgroundColor: "grey",
-    padding: 10,
+    padding: 5,
     borderRadius: 10,
   },
   buttonSave: {
     alignItems: "center",
     width: "35%",
     backgroundColor: "green",
-    padding: 10,
+    padding: 5,
     borderRadius: 10,
   },
   buttonText: {

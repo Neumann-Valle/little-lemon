@@ -1,16 +1,39 @@
-import * as React from "react";
-import { View, Text, TextInput, Pressable } from "react-native";
+import { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  Pressable,
+  Image,
+  KeyboardAvoidingView,
+  ScrollView,
+} from "react-native";
 import styles from "../components/styles/Profile.style";
+import Checkbox from "expo-checkbox";
+import { ImageBackground } from "react-native";
+import profilePic from "../assets/Profile.png";
 
 function ProfileScreen({ route, navigation }) {
+  useEffect(() => {}, []);
   // todo, do propertly themes
   const Theme = route.params;
 
   return (
+    <ScrollView>
     <View style={styles.profileContainer}>
       <View style={styles.headerSub}>
         <Text style={styles.emailNotificationSub}>Personal information</Text>
         <Text style={styles.profileText}>Avatar</Text>
+      </View>
+      <View style={styles.avatarContainer}>
+        <Image style={styles.profileAvatar} source={profilePic} />
+
+        <Pressable style={styles.avatarButtonChange}>
+          <Text style={styles.avatarButtonText}>Change</Text>
+        </Pressable>
+        <Pressable style={styles.avatarButtonRemove}>
+          <Text style={styles.avatarButtonText}>Remove</Text>
+        </Pressable>
       </View>
       <View style={styles.inputContainer}>
         <Text style={styles.profileText}>First name</Text>
@@ -33,10 +56,41 @@ function ProfileScreen({ route, navigation }) {
 
       <View style={styles.notifications}>
         <Text style={styles.emailNotificationSub}>Email notifications</Text>
-        <Text style={styles.profileText}>Order status</Text>
-        <Text style={styles.profileText}>Password changes</Text>
-        <Text style={styles.profileText}>Special offers</Text>
-        <Text style={styles.profileText}>Newsletter</Text>
+        <View style={styles.section}>
+          <Checkbox
+            style={styles.checkbox}
+            value={null}
+            onValueChange={() => {}}
+          />
+          <Text style={styles.profileText}>Order status</Text>
+        </View>
+
+        <View style={styles.section}>
+          <Checkbox
+            style={styles.checkbox}
+            value={null}
+            onValueChange={() => {}}
+          />
+          <Text style={styles.profileText}>Password changes</Text>
+        </View>
+
+        <View style={styles.section}>
+          <Checkbox
+            style={styles.checkbox}
+            value={null}
+            onValueChange={() => {}}
+          />
+          <Text style={styles.profileText}>Special offers</Text>
+        </View>
+
+        <View style={styles.section}>
+          <Checkbox
+            style={styles.checkbox}
+            value={null}
+            onValueChange={() => {}}
+          />
+          <Text style={styles.profileText}>Newsletter</Text>
+        </View>
       </View>
       <Pressable style={styles.logoutButton}>
         <Text style={styles.buttonText}>Log Out</Text>
@@ -50,6 +104,7 @@ function ProfileScreen({ route, navigation }) {
         </Pressable>
       </View>
     </View>
+    </ScrollView>
   );
 }
 

@@ -10,7 +10,6 @@ import {
   Image,
   TextInput,
   Pressable,
-  Platform,
   KeyboardAvoidingView,
 } from "react-native";
 
@@ -71,10 +70,7 @@ function OnboardingScreen({ route, navigation }) {
   const inputLenght = 25;
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "android" ? "padding" : "height"}
-      style={styles.container}
-    >
+    <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
       <View style={styles.logoContainer}>
         <Image source={logo} resizeMode="cover" style={styles.image} />
       </View>
@@ -104,10 +100,11 @@ function OnboardingScreen({ route, navigation }) {
             onChangeText={parseEmail}
           />
         </View>
-      </View>
-      <Pressable {...buttonProps}>
+        <Pressable {...buttonProps}>
         <Text style={styles.buttonText}>Next</Text>
       </Pressable>
+      </View>
+      
     </KeyboardAvoidingView>
   );
 }
