@@ -29,11 +29,10 @@ export default function App() {
 
   const props = {
     name: "Onboarding",
-    component: OnboardingScreen,
   };
 
   if (onboardingDone) {
-    (props.name = "Profile"), (props.component = ProfileScreen);
+    props.name = "Profile";
   }
 
   if (!fontsLoaded) {
@@ -46,10 +45,15 @@ export default function App() {
 
   return (
     <NavigationContainer theme={DarkTheme}>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName={props.name}>
         <Stack.Screen
-          name={props.name}
-          component={props.component}
+          name="Onboarding"
+          component={OnboardingScreen}
+          initialParams={DarkTheme}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={ProfileScreen}
           initialParams={DarkTheme}
         />
       </Stack.Navigator>
