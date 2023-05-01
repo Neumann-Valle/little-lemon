@@ -19,6 +19,10 @@ export async function createTable() {
   });
 }
 
+/**
+ *
+ * @returns []data or false
+ */
 export async function getUserData() {
   return new Promise((resolve) => {
     db.transaction((tx) => {
@@ -31,6 +35,7 @@ export async function getUserData() {
 
 /**
  * updates user data
+ * {firstname:?, lastname:?,email:?,phone:?,orderstatus:?,passwordchange:?,specialoffer:?,newsletter:?}
  * @param {*} params
  */
 export async function updateUserData(params = {}) {
