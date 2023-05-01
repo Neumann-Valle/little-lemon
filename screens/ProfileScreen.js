@@ -1,4 +1,11 @@
 import { useEffect, useState } from "react";
+import styles from "../components/styles/Profile.style";
+import Checkbox from "expo-checkbox";
+import { ImageBackground } from "react-native";
+import profilePic from "../assets/Profile.png";
+import fetchCredentials from "../utilities/fetch.credentials";
+import clearCredentials from "../utilities/clear.credentials";
+import OnboardingScreen from "./HomeScreen";
 import {
   View,
   Text,
@@ -14,12 +21,6 @@ import {
   updateUserData,
   deleteUser,
 } from "../utilities/database";
-import styles from "../components/styles/Profile.style";
-import Checkbox from "expo-checkbox";
-import { ImageBackground } from "react-native";
-import profilePic from "../assets/Profile.png";
-import fetchCredentials from "../utilities/fetch.credentials";
-import clearCredentials from "../utilities/clear.credentials";
 
 createTable();
 
@@ -149,6 +150,7 @@ function ProfileScreen({ route, navigation }) {
   function doLogout() {
     deleteUser();
     clearCredentials();
+    navigation.navigate("Onboarding");
   }
 
   // todo, do propertly themes
