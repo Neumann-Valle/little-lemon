@@ -12,12 +12,14 @@ import {
   getUserData,
   saveUserData,
   updateUserData,
+  deleteUser,
 } from "../utilities/database";
 import styles from "../components/styles/Profile.style";
 import Checkbox from "expo-checkbox";
 import { ImageBackground } from "react-native";
 import profilePic from "../assets/Profile.png";
 import fetchCredentials from "../utilities/fetch.credentials";
+import clearCredentials from "../utilities/clear.credentials";
 
 createTable();
 
@@ -35,7 +37,7 @@ function ProfileScreen({ route, navigation }) {
     (async () => {
       try {
         // create table
-        await createTable();
+        // await createTable();
         const onboardingData = await fetchCredentials();
         let uData = await getUserData();
 
@@ -142,6 +144,11 @@ function ProfileScreen({ route, navigation }) {
         console.log(error);
       }
     })();
+  }
+
+  function doLogout() {
+    deleteUser();
+    clearCredentials();
   }
 
   // todo, do propertly themes
@@ -269,7 +276,7 @@ function ProfileScreen({ route, navigation }) {
             <Text style={styles.profileText}>Newsletter</Text>
           </View>
         </View>
-        <Pressable style={styles.logoutButton}>
+        <Pressable style={styles.logoutButton} onPress={doLogout}>
           <Text style={styles.buttonText}>Log Out</Text>
         </Pressable>
         <View style={styles.doubleButton}>
