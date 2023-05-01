@@ -62,13 +62,17 @@ export default StyleSheet.create({
     gap: 25,
   },
   inputContainer: {},
-  input: {
+  inputInner: {
     alignSelf: "center",
     width: "80%",
-    backgroundColor: "#fff",
+    backgroundColor: "lightgrey",
     borderRadius: 10,
     padding: 2,
     margin: 5,
+  },
+  input:{
+    marginLeft:5,
+    color:'#121212'
   },
   logoutButton: {
     width: "80%",
