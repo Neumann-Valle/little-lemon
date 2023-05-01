@@ -23,6 +23,12 @@ createTable();
 
 function ProfileScreen({ route, navigation }) {
   const [profileData, setProfileData] = useState({});
+  const [notificationsOptions, setNotificationsOptions] = useState({
+    newsletter: 0,
+    orderstatus: 0,
+    passwordchange: 0,
+    specialoffer: 0,
+  });
 
   useEffect(() => {
     (async () => {
