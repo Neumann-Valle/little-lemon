@@ -83,3 +83,18 @@ export async function saveUserData(params = {}) {
     );
   });
 }
+
+export async function deleteUser(params = {}) {
+  db.transaction((tx) => {
+    tx.executeSql(
+      "DROP TABLE user",
+      [],
+      (_, { rows }) => {
+        // console.log(rows._array);
+      },
+      (_, err) => {
+        throw new Error(`Something went wrong, stack info : ${err}`);
+      }
+    );
+  });
+}
