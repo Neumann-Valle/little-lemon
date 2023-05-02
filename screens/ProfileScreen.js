@@ -6,14 +6,7 @@ import profilePic from "../assets/Profile.png";
 import fetchCredentials from "../utilities/fetch.credentials";
 import clearCredentials from "../utilities/clear.credentials";
 import * as ImagePicker from "expo-image-picker";
-import {
-  View,
-  Text,
-  TextInput,
-  Pressable,
-  Image,
-  ScrollView,
-} from "react-native";
+import { View, Text, TextInput, Image, ScrollView } from "react-native";
 import {
   createTable,
   getUserData,
@@ -21,8 +14,7 @@ import {
   updateUserData,
   deleteUser,
 } from "../utilities/database";
-
-createTable();
+import Cpressable from "../components/CustomPressable.component";
 
 function ProfileScreen({ route, navigation }) {
   // const [avatar, setAvatar] = useState("");
@@ -39,7 +31,7 @@ function ProfileScreen({ route, navigation }) {
     (async () => {
       try {
         // create table
-        // await createTable();
+        await createTable();
         const onboardingData = await fetchCredentials();
         let uData = await getUserData();
 
@@ -97,6 +89,16 @@ function ProfileScreen({ route, navigation }) {
     profileData.phone = str;
   }
 
+  function resetAvatar() {
+    setProfileData({ ...profileData, avatar: "null" });
+  }
+
+  function doLogout() {
+    deleteUser();
+    clearCredentials();
+    navigation.navigate("Onboarding");
+  }
+
   /**
    * save changes to the database
    */
@@ -143,17 +145,11 @@ function ProfileScreen({ route, navigation }) {
         notificationsOptions.orderstatus = Boolean(uData.orderstatus);
         notificationsOptions.passwordchange = Boolean(uData.passwordchange);
         notificationsOptions.specialoffer = Boolean(uData.specialoffer);
-        setProfileData({ ...uData });
+        setProfileData({ ...uData, avatar: null });
       } catch (error) {
         console.log(error);
       }
     })();
-  }
-
-  function doLogout() {
-    deleteUser();
-    clearCredentials();
-    navigation.navigate("Onboarding");
   }
 
   async function imagePicker() {
@@ -172,7 +168,10 @@ function ProfileScreen({ route, navigation }) {
   // todo, do propertly themes
   const Theme = route.params;
   // prepare avatar to be used in the source of Image
-  const avatar = profileData.avatar ? { uri: profileData.avatar } : profilePic;
+  const avatar =
+    typeof profileData.avatar !== "object" && profileData.avatar !== "null"
+      ? { uri: profileData.avatar }
+      : profilePic;
 
   if (isSavingEdit) {
     return (
@@ -199,12 +198,20 @@ function ProfileScreen({ route, navigation }) {
         <View style={styles.avatarContainer}>
           <Image style={styles.profileAvatar} source={avatar} />
 
-          <Pressable style={styles.avatarButtonChange} onPress={imagePicker}>
+          <Cpressable
+            style={styles.avatarButtonChange}
+            onPress={imagePicker}
+            activeOpacity={0.5}
+          >
             <Text style={styles.avatarButtonText}>Change</Text>
-          </Pressable>
-          <Pressable style={styles.avatarButtonRemove}>
+          </Cpressable>
+          <Cpressable
+            style={styles.avatarButtonRemove}
+            onPress={resetAvatar}
+            activeOpacity={0.5}
+          >
             <Text style={styles.avatarButtonText}>Remove</Text>
-          </Pressable>
+          </Cpressable>
         </View>
         <View style={styles.inputContainer}>
           <Text style={styles.profileText}>First name</Text>
@@ -296,16 +303,28 @@ function ProfileScreen({ route, navigation }) {
             <Text style={styles.profileText}>Newsletter</Text>
           </View>
         </View>
-        <Pressable style={styles.logoutButton} onPress={doLogout}>
+        <Cpressable
+          style={styles.logoutButton}
+          onPress={doLogout}
+          activeOpacity={0.5}
+        >
           <Text style={styles.buttonText}>Log Out</Text>
-        </Pressable>
+        </Cpressable>
         <View style={styles.doubleButton}>
-          <Pressable style={styles.buttonDiscard} onPress={discardEdits}>
+          <Cpressable
+            style={styles.buttonDiscard}
+            onPress={discardEdits}
+            activeOpacity={0.5}
+          >
             <Text style={styles.buttonText}>Discard changed</Text>
-          </Pressable>
-          <Pressable style={styles.buttonSave} onPress={saveChanges}>
+          </Cpressable>
+          <Cpressable
+            style={styles.buttonSave}
+            onPress={saveChanges}
+            activeOpacity={0.5}
+          >
             <Text style={styles.buttonText}>Save changes</Text>
-          </Pressable>
+          </Cpressable>
         </View>
       </View>
     </ScrollView>

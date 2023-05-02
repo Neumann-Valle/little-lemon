@@ -49,6 +49,14 @@ export async function updateUserData(params = {}) {
     passwordchange='${params.passwordchange}',specialoffer='${params.specialoffer}',
     newsletter='${params.newsletter}', avatar='${params.avatar}' WHERE id=1`;
 
+    // let query2 = `UPDATE user SET `;
+    // for (const [key, value] of Object.entries(params)) {
+    //   query2 += `${key}='${value}',`;
+    // }
+    // // query2 += `WHERE id=1`;
+
+    // // console.log(query2);
+
     tx.executeSql(
       query,
       [],

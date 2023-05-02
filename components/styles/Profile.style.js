@@ -92,7 +92,7 @@ export default StyleSheet.create({
   buttonDiscard: {
     alignItems: "center",
     width: "35%",
-    backgroundColor: "grey",
+    backgroundColor: "lightgrey",
     padding: 5,
     borderRadius: 10,
   },

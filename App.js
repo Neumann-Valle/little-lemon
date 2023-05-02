@@ -17,6 +17,7 @@ export default function App() {
   });
 
   const [onboardingDone, setOnboardingDone] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
@@ -24,6 +25,7 @@ export default function App() {
       if (res.logged) {
         setOnboardingDone(true);
       }
+      setLoading(false);
     })();
   }, []);
 
@@ -39,8 +41,8 @@ export default function App() {
     return null;
   }
 
-  if (!onboardingDone) {
-    // return <SplashScreen />;
+  if (loading) {
+    return <SplashScreen />;
   }
 
   return (
