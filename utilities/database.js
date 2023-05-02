@@ -10,7 +10,9 @@ export async function createTable() {
           `create table if not exists user 
           (id integer primary key not null, 
             firstname text, lastname text, email text, 
-            phone text,orderstatus integer,passwordchange integer, specialoffer integer, newsletter integer);`
+            phone text,orderstatus integer,passwordchange integer,
+            specialoffer integer, newsletter integer, avatar text
+          );`
         );
       },
       reject,
@@ -35,7 +37,9 @@ export async function getUserData() {
 
 /**
  * updates user data
- * {firstname:?, lastname:?,email:?,phone:?,orderstatus:?,passwordchange:?,specialoffer:?,newsletter:?}
+ * {firstname:?, lastname:?,email:?,phone:?,
+ * orderstatus:?,passwordchange:?,specialoffer:?,
+ * newsletter:?, avatar:?}
  * @param {*} params
  */
 export async function updateUserData(params = {}) {
@@ -43,7 +47,7 @@ export async function updateUserData(params = {}) {
     const query = `UPDATE user SET firstname='${params.firstname}', lastname='${params.lastname}',
     email='${params.email}',phone='${params.phone}', orderstatus='${params.orderstatus}',
     passwordchange='${params.passwordchange}',specialoffer='${params.specialoffer}',
-    newsletter='${params.newsletter}' WHERE id=1`;
+    newsletter='${params.newsletter}', avatar='${params.avatar}' WHERE id=1`;
 
     tx.executeSql(
       query,
