@@ -5,7 +5,7 @@ import { ImageBackground } from "react-native";
 import profilePic from "../assets/Profile.png";
 import fetchCredentials from "../utilities/fetch.credentials";
 import clearCredentials from "../utilities/clear.credentials";
-import OnboardingScreen from "./HomeScreen";
+import * as ImagePicker from "expo-image-picker";
 import {
   View,
   Text,
@@ -25,6 +25,7 @@ import {
 createTable();
 
 function ProfileScreen({ route, navigation }) {
+  // const [avatar, setAvatar] = useState("");
   const [isSavingEdit, setIsSavingEdits] = useState(false);
   const [profileData, setProfileData] = useState({});
   const [notificationsOptions, setNotificationsOptions] = useState({
@@ -57,12 +58,11 @@ function ProfileScreen({ route, navigation }) {
             passwordchange: 1,
             specialoffer: 0,
             newsletter: 0,
+            avatar: "",
           };
           await saveUserData(userData);
           uData = await getUserData();
         }
-
-        // console.log(uData);
 
         // since we are setting user profile
         // lets access the notificationsOptions
@@ -71,6 +71,8 @@ function ProfileScreen({ route, navigation }) {
         notificationsOptions.orderstatus = Boolean(uData.orderstatus);
         notificationsOptions.passwordchange = Boolean(uData.passwordchange);
         notificationsOptions.specialoffer = Boolean(uData.specialoffer);
+
+        // console.log(uData);
 
         setProfileData({ ...uData });
       } catch (error) {
@@ -114,6 +116,7 @@ function ProfileScreen({ route, navigation }) {
           passwordchange: notificationsOptions.passwordchange ? 1 : 0,
           specialoffer: notificationsOptions.specialoffer ? 1 : 0,
           newsletter: notificationsOptions.newsletter ? 1 : 0,
+          avatar: profileData.avatar,
         };
 
         // update the use database
@@ -153,8 +156,23 @@ function ProfileScreen({ route, navigation }) {
     navigation.navigate("Onboarding");
   }
 
+  async function imagePicker() {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: false,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setProfileData({ ...profileData, avatar: result.assets[0].uri });
+    }
+  }
+
   // todo, do propertly themes
   const Theme = route.params;
+  // prepare avatar to be used in the source of Image
+  const avatar = profileData.avatar ? { uri: profileData.avatar } : profilePic;
 
   if (isSavingEdit) {
     return (
@@ -179,9 +197,9 @@ function ProfileScreen({ route, navigation }) {
           <Text style={styles.profileText}>Avatar</Text>
         </View>
         <View style={styles.avatarContainer}>
-          <Image style={styles.profileAvatar} source={profilePic} />
+          <Image style={styles.profileAvatar} source={avatar} />
 
-          <Pressable style={styles.avatarButtonChange}>
+          <Pressable style={styles.avatarButtonChange} onPress={imagePicker}>
             <Text style={styles.avatarButtonText}>Change</Text>
           </Pressable>
           <Pressable style={styles.avatarButtonRemove}>
