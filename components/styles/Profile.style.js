@@ -21,8 +21,8 @@ export default StyleSheet.create({
     gap: 20,
   },
   profileAvatar: {
-    width: 70,
-    height: 70,
+    width: 63,
+    height: 63,
     borderRadius: 30,
   },
   avatarButtonChange: {
@@ -39,7 +39,7 @@ export default StyleSheet.create({
   },
   avatarButtonText: {
     color: "black",
-    fontFamily:'Karla-Regular'
+    fontFamily: "Karla-Regular",
   },
   emailNotificationSub: {
     color: "rgb(229, 229, 231)",
@@ -70,9 +70,9 @@ export default StyleSheet.create({
     padding: 2,
     margin: 5,
   },
-  input:{
-    marginLeft:5,
-    color:'#121212'
+  input: {
+    marginLeft: 5,
+    color: "#121212",
   },
   logoutButton: {
     width: "80%",
@@ -84,7 +84,7 @@ export default StyleSheet.create({
   },
   doubleButton: {
     marginTop: 15,
-    paddingBottom:15,
+    paddingBottom: 15,
     flexDirection: "row",
     justifyContent: "center",
     gap: 20,
