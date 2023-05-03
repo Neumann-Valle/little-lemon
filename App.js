@@ -34,7 +34,7 @@ export default function App() {
   };
 
   if (onboardingDone) {
-    props.name = "Profile";
+    props.name = "Home";
   }
 
   if (!fontsLoaded) {
@@ -51,6 +51,11 @@ export default function App() {
         <Stack.Screen
           name="Onboarding"
           component={OnboardingScreen}
+          initialParams={DarkTheme}
+        />
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
           initialParams={DarkTheme}
         />
         <Stack.Screen
