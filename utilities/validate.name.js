@@ -5,6 +5,7 @@
  * @returns boolean
  */
 function validateName(name) {
+  console.log(name);
   return /^[a-zA-Z]+$/.test(name.trim());
 }
 
