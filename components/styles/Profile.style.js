@@ -70,6 +70,14 @@ export default StyleSheet.create({
     padding: 2,
     margin: 5,
   },
+  inputErr: {
+    alignSelf: "center",
+    width: "80%",
+    backgroundColor: "#ea1313a6",
+    borderRadius: 10,
+    padding: 2,
+    margin: 5,
+  },
   input: {
     marginLeft: 5,
     color: "#121212",
