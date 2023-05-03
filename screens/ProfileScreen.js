@@ -8,6 +8,7 @@ import * as ImagePicker from "expo-image-picker";
 import isvalid_email from "../utilities/validate.email";
 import isvalid_Name from "../utilities/validate.name";
 import Cpressable from "../components/CustomPressable.component";
+import UserAvatar from "react-native-user-avatar";
 import { View, Text, TextInput, Image, ScrollView } from "react-native";
 import {
   createTable,
@@ -188,11 +189,20 @@ function ProfileScreen({ route, navigation }) {
 
   // todo, do propertly themes
   const Theme = route.params;
-  // prepare avatar to be used in the source of Image
+
   const avatar =
-    typeof profileData.avatar !== "object" && profileData.avatar !== "null"
-      ? { uri: profileData.avatar }
-      : profilePic;
+    typeof profileData.avatar !== "object" && profileData.avatar !== "null" ? (
+      <Image
+        style={styles.profileAvatar}
+        source={{ uri: profileData.avatar }}
+      />
+    ) : (
+      <UserAvatar
+        size={styles.profileAvatar.height}
+        name={`${profileData.firstname} ${profileData.lastname}`}
+        bgColor="#000"
+      />
+    );
 
   if (isSavingEdit) {
     return (
@@ -217,8 +227,7 @@ function ProfileScreen({ route, navigation }) {
           <Text style={styles.profileText}>Avatar</Text>
         </View>
         <View style={styles.avatarContainer}>
-          <Image style={styles.profileAvatar} source={avatar} />
-
+          {avatar}
           <Cpressable
             style={styles.avatarButtonChange}
             onPress={imagePicker}
