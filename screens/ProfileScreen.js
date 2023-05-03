@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "../components/styles/Profile.style";
 import Checkbox from "expo-checkbox";
-import profilePic from "../assets/Profile.png";
 import fetchCredentials from "../utilities/fetch.credentials";
 import clearCredentials from "../utilities/clear.credentials";
 import * as ImagePicker from "expo-image-picker";
@@ -49,7 +48,7 @@ function ProfileScreen({ route, navigation }) {
         if (!uData) {
           const userData = {
             firstname: onboardingData.lastname,
-            lastname: "none",
+            lastname: "Doe",
             email: onboardingData.email,
             phone: "3230000090",
             orderstatus: 1,
