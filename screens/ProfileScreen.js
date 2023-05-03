@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import styles from "../components/styles/Profile.style";
 import Checkbox from "expo-checkbox";
-import { ImageBackground } from "react-native";
 import profilePic from "../assets/Profile.png";
 import fetchCredentials from "../utilities/fetch.credentials";
 import clearCredentials from "../utilities/clear.credentials";
 import * as ImagePicker from "expo-image-picker";
+import isvalid_email from "../utilities/validate.email";
+import isvalid_Name from "../utilities/validate.name";
+import Cpressable from "../components/CustomPressable.component";
 import { View, Text, TextInput, Image, ScrollView } from "react-native";
 import {
   createTable,
@@ -14,10 +16,8 @@ import {
   updateUserData,
   deleteUser,
 } from "../utilities/database";
-import Cpressable from "../components/CustomPressable.component";
 
 function ProfileScreen({ route, navigation }) {
-  // const [avatar, setAvatar] = useState("");
   const [isSavingEdit, setIsSavingEdits] = useState(false);
   const [profileData, setProfileData] = useState({});
   const [notificationsOptions, setNotificationsOptions] = useState({
@@ -25,6 +25,11 @@ function ProfileScreen({ route, navigation }) {
     orderstatus: false,
     passwordchange: false,
     specialoffer: false,
+  });
+  // track name and email are spected requirements
+  const [nameEmailerror, setNameEmailerror] = useState({
+    name: false,
+    email: false,
   });
 
   useEffect(() => {
@@ -105,6 +110,20 @@ function ProfileScreen({ route, navigation }) {
   function saveChanges() {
     (async () => {
       try {
+        const email_isvalid = isvalid_email(profileData.email);
+        const name_isvalid = isvalid_Name(profileData.firstname);
+
+        if (!email_isvalid || !name_isvalid) {
+          setNameEmailerror({
+            ...nameEmailerror,
+            email: !email_isvalid,
+            name: !name_isvalid,
+          });
+          setTimeout(() => {
+            setNameEmailerror({ ...nameEmailerror, email: false, name: false });
+          }, 500);
+          return;
+        }
         // show some intering commponent
         setIsSavingEdits(true);
         // todo make this into a function
@@ -130,7 +149,9 @@ function ProfileScreen({ route, navigation }) {
         setTimeout(() => {
           setIsSavingEdits(false);
         }, 2000);
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     })();
   }
 
@@ -215,7 +236,9 @@ function ProfileScreen({ route, navigation }) {
         </View>
         <View style={styles.inputContainer}>
           <Text style={styles.profileText}>First name</Text>
-          <View style={styles.inputInner}>
+          <View
+            style={nameEmailerror.name ? styles.inputErr : styles.inputInner}
+          >
             <TextInput
               onChangeText={updateFirstName}
               placeholder={profileData.firstname}
@@ -231,7 +254,9 @@ function ProfileScreen({ route, navigation }) {
             />
           </View>
           <Text style={styles.profileText}>Email</Text>
-          <View style={styles.inputInner}>
+          <View
+            style={nameEmailerror.email ? styles.inputErr : styles.inputInner}
+          >
             <TextInput
               onChangeText={updateEmail}
               placeholder={profileData.email}
