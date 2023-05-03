@@ -53,6 +53,7 @@ function OnboardingScreen({ route, navigation }) {
       try {
         await AsyncStorage.setItem("lastname", name);
         await AsyncStorage.setItem("email", email);
+        navigation.navigate("Home");
       } catch (error) {
         // Error saving data
         console.log(error);
@@ -101,10 +102,9 @@ function OnboardingScreen({ route, navigation }) {
           />
         </View>
         <Pressable {...buttonProps}>
-        <Text style={styles.buttonText}>Next</Text>
-      </Pressable>
+          <Text style={styles.buttonText}>Next</Text>
+        </Pressable>
       </View>
-      
     </KeyboardAvoidingView>
   );
 }
