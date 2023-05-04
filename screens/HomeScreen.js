@@ -1,11 +1,37 @@
-import * as React from "react";
-import { View, Text, Image, TextInput } from "react-native";
+import { useEffect, useState } from "react";
+import { View, Text, Image, TextInput, FlatList } from "react-native";
 import Header from "../components/Header.component";
 import heroImage from "../assets/hero-image.png";
 import styles from "../components/styles/HomeScreen.styles";
 import Cpressable from "../components/CustomPressable.component";
+import Dishes from "../components/Dishes.component";
 
 function HomeScreen({ route, navigation }) {
+  const [dishes, setDishes] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const onlineData = await fetchRemoteData();
+      const dishes = onlineData.menu.map((item) => {
+        return { ...item, key: item.name };
+      });
+      setDishes([...dishes]);
+    })();
+  }, []);
+
+  async function fetchRemoteData() {
+    try {
+      const URI =
+        "https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/capstone.json";
+
+      const response = await fetch(URI);
+      data = await response.json();
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <View style={styles.container}>
       <Header navigator={navigation} />
@@ -36,11 +62,7 @@ function HomeScreen({ route, navigation }) {
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <Text
-          style={{ color: "white", fontFamily: "Karla-Regular", fontSize: 18 }}
-        >
-          Order for delivery!
-        </Text>
+        <Text style={styles.pageSub}>Order for delivery!</Text>
         <View style={styles.innerButtons}>
           <Cpressable style={styles.buttons}>
             <Text>Starters</Text>
@@ -56,6 +78,21 @@ function HomeScreen({ route, navigation }) {
           </Cpressable>
         </View>
         <View style={styles.divider}></View>
+        {/* <View style={styles.dishesList}> */}
+        <FlatList
+          ItemSeparatorComponent={() => <View style={{padding:1,}}></View>}
+          data={dishes}
+          renderItem={({ item }) => (
+            <Dishes
+              title={item.name}
+              description={item.description}
+              price={item.price}
+              photoNAME={item.image}
+            />
+          )}
+          keyExtractor={(item) => item.key}
+        />
+        {/* </View> */}
       </View>
     </View>
   );
