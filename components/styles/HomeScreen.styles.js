@@ -31,6 +31,11 @@ export default StyleSheet.create({
     fontFamily: "Markazy-Text",
     fontSize: 30,
   },
+  pageSub: {
+    color: "#fff",
+    fontFamily: "Markazy-Text",
+    fontSize: 25,
+  },
   heroParagraph: {
     color: "#fff",
     fontFamily: "Karla-Regular",
@@ -50,6 +55,7 @@ export default StyleSheet.create({
     backgroundColor: "lightgrey",
   },
   buttonContainer: {
+    flex:1,
     width: "80%",
     gap: 15,
   },
@@ -67,5 +73,8 @@ export default StyleSheet.create({
     width: "100%",
     height: 1,
     backgroundColor: "lightgrey",
+  },
+  dishesList: {
+    // flex: 1,
   },
 });
