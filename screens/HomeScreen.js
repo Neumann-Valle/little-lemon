@@ -78,9 +78,8 @@ function HomeScreen({ route, navigation }) {
           </Cpressable>
         </View>
         <View style={styles.divider}></View>
-        {/* <View style={styles.dishesList}> */}
         <FlatList
-          ItemSeparatorComponent={() => <View style={{padding:1,}}></View>}
+          ItemSeparatorComponent={() => <View style={styles.separator}></View>}
           data={dishes}
           renderItem={({ item }) => (
             <Dishes
@@ -92,7 +91,6 @@ function HomeScreen({ route, navigation }) {
           )}
           keyExtractor={(item) => item.key}
         />
-        {/* </View> */}
       </View>
     </View>
   );

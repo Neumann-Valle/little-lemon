@@ -9,7 +9,7 @@ export default StyleSheet.create({
   },
   heroArea: {
     backgroundColor: "#495E57",
-    width: "90%",
+    width: "100%",
     borderRadius: 16,
   },
   heroAreaInner: {
@@ -24,17 +24,18 @@ export default StyleSheet.create({
   heroTitle: {
     color: "#F4CE14",
     fontFamily: "Markazy-Text",
-    fontSize: 40,
+    fontSize: 35,
   },
   heroSub: {
     color: "#fff",
     fontFamily: "Markazy-Text",
-    fontSize: 30,
+    fontSize: 25,
   },
   pageSub: {
     color: "#fff",
     fontFamily: "Markazy-Text",
     fontSize: 25,
+    marginLeft: 15
   },
   heroParagraph: {
     color: "#fff",
@@ -42,7 +43,7 @@ export default StyleSheet.create({
     fontSize: 16,
   },
   heroImage: {
-    width: 150,
+    width: 130,
     height: 130,
     borderRadius: 16,
   },
@@ -55,9 +56,9 @@ export default StyleSheet.create({
     backgroundColor: "lightgrey",
   },
   buttonContainer: {
-    flex:1,
-    width: "80%",
-    gap: 15,
+    flex: 1,
+    width: "100%",
+    gap: 10,
   },
   innerButtons: {
     flexDirection: "row",
@@ -73,6 +74,10 @@ export default StyleSheet.create({
     width: "100%",
     height: 1,
     backgroundColor: "lightgrey",
+  },
+  separator: {
+    backgroundColor: '#495E57',
+    padding: 1,
   },
   dishesList: {
     // flex: 1,
