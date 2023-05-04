@@ -19,7 +19,7 @@ function Header(props) {
           setLoginData({ ...loginData, firstname: uData.lastname });
         }
 
-        console.log(uData);
+        // console.log(uData);
         // const uData = await getUserData();
         // console.log(uData || 'nothing to show');
       } catch (error) {
@@ -45,7 +45,7 @@ function Header(props) {
         <UserAvatar
           size={64}
           name={`${loginData.firstname} ${loginData.lastname}`}
-          bgColor="blue"
+          bgColor="black"
         />
       </Cpressable>
     </View>
