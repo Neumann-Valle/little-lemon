@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { View, Text, Image, Pressable } from "react-native";
 import UserAvatar from "react-native-user-avatar";
 import logo from "../assets/Logo.png";
-import { getUserData } from "../utilities/database";
+import { getUserData } from "../utilities/user.database";
 import styles from "./styles/Header.component.style";
 import Cpressable from "../components/CustomPressable.component";
 import fetchCredentials from "../utilities/fetch.credentials";
@@ -12,29 +12,29 @@ function Header(props) {
 
   useEffect(() => {
     (async () => {
-      fetchRemoteData();
+      await loadCredentials();
     })();
   }, []);
 
   useEffect(() => {
     const focusHandler = props.navigator.addListener("focus", () => {
-      fetchRemoteData();
+      loadCredentials();
     });
 
     return focusHandler;
   }, [props.navigator]);
 
-  async function fetchRemoteData() {
+  async function loadCredentials() {
     try {
+      const udbData = await getUserData();
       let uData = await fetchCredentials();
       if (uData.logged) {
-        const udbData = await getUserData();
-
+        // override with database
         if (udbData) {
-          uData = udbData;
+          uData = { ...udbData };
         }
 
-        setLoginData({ ...uData });
+        setLoginData({ ...uData, avatar: uData.avatar || null });
       }
     } catch (error) {
       console.log(error);
@@ -48,8 +48,6 @@ function Header(props) {
   function navigateToProfile() {
     props.navigator.navigate("Profile");
   }
-
-  // console.log(loginData);
 
   const avatar =
     typeof loginData.avatar !== "object" && loginData.avatar !== "null" ? (
