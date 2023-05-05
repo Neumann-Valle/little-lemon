@@ -1,9 +1,9 @@
 import logo from "../assets/Logo.png";
 import { useState } from "react";
+import storeCredentials from "../utilities/storage.store.credentials";
 import isvalid_email from "../utilities/validate.email";
 import isvalid_name from "../utilities/validate.name";
 import styles from "../components/styles/Onboarding.style";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   Text,
   View,
@@ -50,14 +50,12 @@ function OnboardingScreen({ route, navigation }) {
     }
 
     async function saveCredentials() {
-      try {
-        await AsyncStorage.setItem("lastname", name);
-        await AsyncStorage.setItem("email", email);
-        navigation.navigate("Home");
-      } catch (error) {
-        // Error saving data
-        console.log(error);
+      const credentials = await storeCredentials(name, email);
+      if (!credentials.stored) {
+        console.log(credentials.err);
+        return;
       }
+      navigation.navigate("Home");
     }
 
     saveCredentials();
