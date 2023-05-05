@@ -12,21 +12,34 @@ function Header(props) {
 
   useEffect(() => {
     (async () => {
-      try {
-        const uData = await fetchCredentials();
-
-        if (uData.logged) {
-          setLoginData({ ...loginData, firstname: uData.lastname });
-        }
-
-        // console.log(uData);
-        // const uData = await getUserData();
-        // console.log(uData || 'nothing to show');
-      } catch (error) {
-        console.log(error);
-      }
+      fetchRemoteData();
     })();
   }, []);
+
+  useEffect(() => {
+    const focusHandler = props.navigator.addListener("focus", () => {
+      fetchRemoteData();
+    });
+
+    return focusHandler;
+  }, [props.navigator]);
+
+  async function fetchRemoteData() {
+    try {
+      let uData = await fetchCredentials();
+      if (uData.logged) {
+        const udbData = await getUserData();
+
+        if (udbData) {
+          uData = udbData;
+        }
+
+        setLoginData({ ...uData });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   function navigateToHome() {
     props.navigator.navigate("Home");
@@ -36,17 +49,34 @@ function Header(props) {
     props.navigator.navigate("Profile");
   }
 
+  // console.log(loginData);
+
+  const avatar =
+    typeof loginData.avatar !== "object" && loginData.avatar !== "null" ? (
+      <Image style={styles.profileAvatar} source={{ uri: loginData.avatar }} />
+    ) : (
+      <UserAvatar
+        size={64}
+        name={
+          loginData.lastname !== ""
+            ? `${loginData.firstname} ${loginData.lastname}`
+            : loginData.firstname
+        }
+        bgColor="#000"
+      />
+    );
+
   return (
     <View style={styles.container}>
       <Cpressable onPress={navigateToHome} activeOpacity={0.5}>
         <Image source={logo} resizeMode="cover" />
       </Cpressable>
-      <Cpressable onPress={navigateToProfile} activeOpacity={0.5} style={styles.avatarButton}>
-        <UserAvatar
-          size={64}
-          name={`${loginData.firstname} ${loginData.lastname}`}
-          bgColor="black"
-        />
+      <Cpressable
+        onPress={navigateToProfile}
+        activeOpacity={0.5}
+        style={styles.avatarButton}
+      >
+        {avatar}
       </Cpressable>
     </View>
   );
