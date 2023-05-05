@@ -12,6 +12,11 @@ export default StyleSheet.create({
     // borderRadious: 16,
     // borderColor: "purple",
   },
+  profileAvatar: {
+    width: 63,
+    height: 63,
+    borderRadius: 30,
+  },
   avatarButton: {
     paddingRight: 15,
   },
