@@ -12,9 +12,9 @@ async function fetchCredentials() {
   response.error;
 
   try {
-    response.lastname = await AsyncStorage.getItem("lastname");
+    response.firstname = await AsyncStorage.getItem("firstname");
     response.email = await AsyncStorage.getItem("email");
-    if (response.lastname && response.email) {
+    if (response.firstname && response.email) {
       response.logged = true;
     }
   } catch (e) {
