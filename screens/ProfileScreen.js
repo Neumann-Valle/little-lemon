@@ -11,12 +11,11 @@ import Cpressable from "../components/CustomPressable.component";
 import UserAvatar from "react-native-user-avatar";
 import { View, Text, TextInput, Image, ScrollView } from "react-native";
 import {
-  createTable,
   getUserData,
   saveUserData,
   updateUserData,
   deleteUser,
-} from "../utilities/database";
+} from "../utilities/user.database";
 
 function ProfileScreen({ route, navigation }) {
   const [isSavingEdit, setIsSavingEdits] = useState(false);
@@ -36,8 +35,8 @@ function ProfileScreen({ route, navigation }) {
   useEffect(() => {
     (async () => {
       try {
-        // create table
-        await createTable();
+        // // create table
+        // await createTable();
         const onboardingData = await fetchCredentials();
         let uData = await getUserData();
 
