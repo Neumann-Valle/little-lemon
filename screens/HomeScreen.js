@@ -8,15 +8,10 @@ import Dishes from "../components/Dishes.component";
 
 function HomeScreen({ route, navigation }) {
   const [dishes, setDishes] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    (async () => {
-      const onlineData = await fetchRemoteData();
-      const dishes = onlineData.menu.map((item) => {
-        return { ...item, key: item.name };
-      });
-      setDishes([...dishes]);
-    })();
+    fetchRemoteData();
   }, []);
 
   async function fetchRemoteData() {
@@ -26,10 +21,19 @@ function HomeScreen({ route, navigation }) {
 
       const response = await fetch(URI);
       data = await response.json();
-      return data;
+
+      const dishes = data.menu.map((item) => {
+        return { ...item, key: item.name };
+      });
+
+      setDishes([...dishes]);
     } catch (error) {
       console.log(error);
     }
+  }
+
+  function pullRefresh() {
+    fetchRemoteData();
   }
 
   return (
@@ -79,6 +83,8 @@ function HomeScreen({ route, navigation }) {
         </View>
         <View style={styles.divider}></View>
         <FlatList
+          onRefresh={pullRefresh}
+          refreshing={refreshing}
           ItemSeparatorComponent={() => <View style={styles.separator}></View>}
           data={dishes}
           renderItem={({ item }) => (
