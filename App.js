@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
 import { NavigationContainer, DarkTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createUserTable } from "./utilities/user.database";
 import HomeScreen from "./screens/HomeScreen";
 import SplashScreen from "./screens/SplashScreen";
 import OnboardingScreen from "./screens/OnboardingScreen";
 import fetchCredentials from "./utilities/fetch.credentials";
 import ProfileScreen from "./screens/ProfileScreen";
 import { useFonts } from "expo-font";
+import { createDishesTable } from "./utilities/dishes.database";
 
 const Stack = createNativeStackNavigator();
+
+createUserTable();
+createDishesTable();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
