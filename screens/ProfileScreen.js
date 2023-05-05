@@ -4,6 +4,7 @@ import Checkbox from "expo-checkbox";
 import fetchCredentials from "../utilities/fetch.credentials";
 import clearCredentials from "../utilities/clear.credentials";
 import * as ImagePicker from "expo-image-picker";
+import storeCredentials from "../utilities/storage.store.credentials";
 import isvalid_email from "../utilities/validate.email";
 import isvalid_Name from "../utilities/validate.name";
 import Cpressable from "../components/CustomPressable.component";
@@ -47,12 +48,12 @@ function ProfileScreen({ route, navigation }) {
         // if we anyways gonna do the sqlite
         if (!uData) {
           const userData = {
-            firstname: onboardingData.lastname,
-            lastname: "Doe",
+            firstname: onboardingData.firstname,
+            lastname: "",
             email: onboardingData.email,
-            phone: "3230000090",
-            orderstatus: 1,
-            passwordchange: 1,
+            phone: "",
+            orderstatus: 0,
+            passwordchange: 0,
             specialoffer: 0,
             newsletter: 0,
             avatar: "",
@@ -140,6 +141,10 @@ function ProfileScreen({ route, navigation }) {
           avatar: profileData.avatar,
         };
 
+        // save in the async storage
+        // todo, just bound to sqlite
+        storeCredentials(profileData.firstname, profileData.email);
+
         // update the use database
         await updateUserData(userData);
         // pull fresh data
@@ -198,7 +203,11 @@ function ProfileScreen({ route, navigation }) {
     ) : (
       <UserAvatar
         size={styles.profileAvatar.height}
-        name={`${profileData.firstname} ${profileData.lastname}`}
+        name={
+          profileData.lastname !== ""
+            ? `${profileData.firstname} ${profileData.lastname}`
+            : profileData.firstname
+        }
         bgColor="#000"
       />
     );
