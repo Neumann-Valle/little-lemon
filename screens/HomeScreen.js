@@ -5,13 +5,33 @@ import heroImage from "../assets/hero-image.png";
 import styles from "../components/styles/HomeScreen.styles";
 import Cpressable from "../components/CustomPressable.component";
 import Dishes from "../components/Dishes.component";
+import { getDishesData, saveDisheData } from "../utilities/dishes.database";
 
 function HomeScreen({ route, navigation }) {
   const [dishes, setDishes] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    fetchRemoteData();
+    (async () => {
+      let menus = await getDishesData();
+
+      // dishes arent saved
+      // in db, procceed to save
+      if (!menus) {
+        menus = await fetchRemoteData();
+        // save into databse
+        saveDisheData(menus);
+        return;
+      }
+
+      // todo, do this job in the
+      // getDishesData() instead
+      menus = menus.map((menu) => {
+        return { ...menu, key: menu.id };
+      });
+
+      setDishes([...menus]);
+    })();
   }, []);
 
   async function fetchRemoteData() {
@@ -27,6 +47,8 @@ function HomeScreen({ route, navigation }) {
       });
 
       setDishes([...dishes]);
+      setRefreshing(false);
+      return dishes;
     } catch (error) {
       console.log(error);
     }
@@ -34,6 +56,7 @@ function HomeScreen({ route, navigation }) {
 
   function pullRefresh() {
     fetchRemoteData();
+    setRefreshing(true);
   }
 
   return (
