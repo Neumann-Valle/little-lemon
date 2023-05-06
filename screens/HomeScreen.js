@@ -15,6 +15,7 @@ function HomeScreen({ route, navigation }) {
   const [dishes, setDishes] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [dishQuery, setDishQuery] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -28,7 +29,6 @@ function HomeScreen({ route, navigation }) {
         saveDisheData(menus);
         return;
       }
-
       // todo, do this job in the
       // getDishesData() instead
       menus = menus.map((menu) => {
@@ -39,6 +39,15 @@ function HomeScreen({ route, navigation }) {
     })();
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => handleFoodSearch(), 500);
+  }, [dishQuery]);
+
+  /**
+   * get the remote data and returns it
+   * it updates the state
+   * @returns
+   */
   async function fetchRemoteData() {
     try {
       const URI =
@@ -47,6 +56,7 @@ function HomeScreen({ route, navigation }) {
       const response = await fetch(URI);
       data = await response.json();
 
+      // todo, candidate to have its own function
       const dishes = data.menu.map((item) => {
         return { ...item, key: item.name };
       });
@@ -59,11 +69,41 @@ function HomeScreen({ route, navigation }) {
     }
   }
 
+  /**
+   * refreshes
+   */
   function pullRefresh() {
     fetchRemoteData();
     setRefreshing(true);
   }
 
+  /**
+   * handles the search query in the
+   * textinput
+   */
+  function handleFoodSearch() {
+    let defaultCategories = ["starters", "mains", "Desserts", "drinks"];
+    defaultCategories =
+      categories.length > 0 ? [...categories] : defaultCategories;
+    (async () => {
+      const dishfound = await searchDishesData(dishQuery, defaultCategories);
+      if (dishfound) {
+        // todo, candidate to have its own function
+        const dishes = dishfound.map((item) => {
+          return { ...item, key: item.name };
+        });
+        // update to refresh data
+        setDishes([...dishes]);
+      }
+    })();
+  }
+
+  /**
+   * saves the category,
+   * then this is used to query
+   * the dishes database
+   * @param {*} name
+   */
   function handleCategorie(name) {
     if (!categories.includes(name)) {
       categories.push(name);
@@ -71,10 +111,7 @@ function HomeScreen({ route, navigation }) {
       categories.pop(name);
     }
     setCategories([...categories]);
-
-    (async () => {
-      console.log(await searchDishesData("des", categories));
-    })();
+    handleFoodSearch();
   }
 
   return (
@@ -101,6 +138,9 @@ function HomeScreen({ route, navigation }) {
         </View>
         <View style={styles.inputContainer}>
           <TextInput
+            onChangeText={(text) => {
+              setDishQuery(text);
+            }}
             placeholderTextColor={"grey"}
             placeholder="Search for food"
           />
