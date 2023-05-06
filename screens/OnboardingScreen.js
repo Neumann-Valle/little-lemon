@@ -85,6 +85,7 @@ function OnboardingScreen({ route, navigation }) {
             maxLength={inputLenght}
             placeholderTextColor={"grey"}
             onChangeText={parseName}
+            autoCapitalize="none"
           />
         </View>
         <View style={styles.inputContainer}>
@@ -97,6 +98,7 @@ function OnboardingScreen({ route, navigation }) {
             autoComplete="off"
             maxLength={inputLenght}
             onChangeText={parseEmail}
+            autoCapitalize="none"
           />
         </View>
         <Pressable {...buttonProps}>
