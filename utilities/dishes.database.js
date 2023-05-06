@@ -26,7 +26,7 @@ export async function saveDisheData(dishes) {
           ${dishes
             .map(
               (plate) =>
-                `("${plate.name}", "${plate.price}","${plate.description}","${plate.image}","${plate.name}")`
+                `("${plate.name}", "${plate.price}","${plate.description}","${plate.image}","${plate.category}")`
             )
             .join(", ")}`;
     // console.log(query);
@@ -40,6 +40,26 @@ export async function saveDisheData(dishes) {
         throw new Error(`Something went wrong, stack info : ${err}`);
       }
     );
+  });
+}
+
+export async function searchDishesData(byquery, bycategory = []) {
+  let strcategory = "(";
+
+  bycategory.map((category) => {
+    strcategory += `"${category}",`;
+  });
+  strcategory = strcategory.substring(0, strcategory.length - 1);
+  strcategory += ")";
+  const query = `SELECT * from dishes WHERE category in ${strcategory} AND name like "%${byquery}%"`;
+  // console.log(query);
+
+  return new Promise((resolve) => {
+    db.transaction((tx) => {
+      tx.executeSql(query, [], (_, { rows }) => {
+        resolve(rows._array.length > 0 ? rows._array : false);
+      });
+    });
   });
 }
 
