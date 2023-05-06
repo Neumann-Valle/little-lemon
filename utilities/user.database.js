@@ -99,7 +99,8 @@ export async function saveUserData(params = {}) {
 export async function deleteUser(params = {}) {
   db.transaction((tx) => {
     tx.executeSql(
-      "DROP TABLE user",
+      // "DROP TABLE user",
+      'DELETE FROM user',
       [],
       (_, { rows }) => {
         // console.log(rows._array);
