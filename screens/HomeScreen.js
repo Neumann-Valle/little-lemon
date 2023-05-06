@@ -5,11 +5,16 @@ import heroImage from "../assets/hero-image.png";
 import styles from "../components/styles/HomeScreen.styles";
 import Cpressable from "../components/CustomPressable.component";
 import Dishes from "../components/Dishes.component";
-import { getDishesData, saveDisheData } from "../utilities/dishes.database";
+import {
+  getDishesData,
+  saveDisheData,
+  searchDishesData,
+} from "../utilities/dishes.database";
 
 function HomeScreen({ route, navigation }) {
   const [dishes, setDishes] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -59,6 +64,19 @@ function HomeScreen({ route, navigation }) {
     setRefreshing(true);
   }
 
+  function handleCategorie(name) {
+    if (!categories.includes(name)) {
+      categories.push(name);
+    } else {
+      categories.pop(name);
+    }
+    setCategories([...categories]);
+
+    (async () => {
+      console.log(await searchDishesData("des", categories));
+    })();
+  }
+
   return (
     <View style={styles.container}>
       <Header navigator={navigation} />
@@ -91,16 +109,48 @@ function HomeScreen({ route, navigation }) {
       <View style={styles.buttonContainer}>
         <Text style={styles.pageSub}>Order for delivery!</Text>
         <View style={styles.innerButtons}>
-          <Cpressable style={styles.buttons}>
+          <Cpressable
+            style={
+              categories.includes("starters")
+                ? styles.buttonPressed
+                : styles.buttons
+            }
+            activeOpacity={0.8}
+            onPress={() => handleCategorie("starters")}
+          >
             <Text>Starters</Text>
           </Cpressable>
-          <Cpressable style={styles.buttons}>
+          <Cpressable
+            style={
+              categories.includes("mains")
+                ? styles.buttonPressed
+                : styles.buttons
+            }
+            activeOpacity={0.5}
+            onPress={() => handleCategorie("mains")}
+          >
             <Text>Mains</Text>
           </Cpressable>
-          <Cpressable style={styles.buttons}>
+          <Cpressable
+            style={
+              categories.includes("desserts")
+                ? styles.buttonPressed
+                : styles.buttons
+            }
+            activeOpacity={0.5}
+            onPress={() => handleCategorie("desserts")}
+          >
             <Text>Desserts</Text>
           </Cpressable>
-          <Cpressable style={styles.buttons}>
+          <Cpressable
+            style={
+              categories.includes("drinks")
+                ? styles.buttonPressed
+                : styles.buttons
+            }
+            activeOpacity={0.5}
+            onPress={() => handleCategorie("drinks")}
+          >
             <Text>Drinks</Text>
           </Cpressable>
         </View>
