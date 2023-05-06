@@ -1,10 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 /**
- * if we have been logged return
- * credentials and a logged flag as true
- * otherwise an 'error' member is populated
- * @returns Object
+ * clears all data in async storage
  */
 async function clearCredentials() {
   try {
