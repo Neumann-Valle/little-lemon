@@ -35,7 +35,7 @@ export default StyleSheet.create({
     color: "#fff",
     fontFamily: "Markazy-Text",
     fontSize: 25,
-    marginLeft: 15
+    marginLeft: 15,
   },
   heroParagraph: {
     color: "#fff",
@@ -65,8 +65,12 @@ export default StyleSheet.create({
     justifyContent: "space-around",
   },
   buttons: {
-    color: "black",
     backgroundColor: "lightgrey",
+    padding: 5,
+    borderRadius: 5,
+  },
+  buttonPressed: {
+    backgroundColor: "#bb86fc",
     padding: 5,
     borderRadius: 5,
   },
@@ -76,7 +80,7 @@ export default StyleSheet.create({
     backgroundColor: "lightgrey",
   },
   separator: {
-    backgroundColor: '#495E57',
+    backgroundColor: "#495E57",
     padding: 1,
   },
   dishesList: {
