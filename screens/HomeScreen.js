@@ -82,7 +82,7 @@ function HomeScreen({ route, navigation }) {
    * textinput
    */
   function handleFoodSearch() {
-    let defaultCategories = ["starters", "mains", "Desserts", "drinks"];
+    let defaultCategories = ["starters", "mains", "desserts", "drinks"];
     defaultCategories =
       categories.length > 0 ? [...categories] : defaultCategories;
     (async () => {
