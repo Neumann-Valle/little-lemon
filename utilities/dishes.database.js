@@ -45,7 +45,6 @@ export async function saveDisheData(dishes) {
 
 export async function searchDishesData(byquery, bycategory = []) {
   let strcategory = "(";
-
   bycategory.map((category) => {
     strcategory += `"${category}",`;
   });
