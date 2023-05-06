@@ -7,6 +7,7 @@ import * as ImagePicker from "expo-image-picker";
 import storeCredentials from "../utilities/storage.store.credentials";
 import isvalid_email from "../utilities/validate.email";
 import isvalid_Name from "../utilities/validate.name";
+import isvalid_number from "../utilities/validate.us.phone";
 import Cpressable from "../components/CustomPressable.component";
 import UserAvatar from "react-native-user-avatar";
 import { View, Text, TextInput, Image, ScrollView } from "react-native";
@@ -27,9 +28,10 @@ function ProfileScreen({ route, navigation }) {
     specialoffer: false,
   });
   // track name and email are spected requirements
-  const [nameEmailerror, setNameEmailerror] = useState({
+  const [inputError, setInputError] = useState({
     name: false,
     email: false,
+    phone: false
   });
 
   useEffect(() => {
@@ -50,7 +52,7 @@ function ProfileScreen({ route, navigation }) {
             firstname: onboardingData.firstname,
             lastname: "",
             email: onboardingData.email,
-            phone: "",
+            phone: "(000)000-0000",
             orderstatus: 0,
             passwordchange: 0,
             specialoffer: 0,
@@ -112,15 +114,17 @@ function ProfileScreen({ route, navigation }) {
       try {
         const email_isvalid = isvalid_email(profileData.email);
         const name_isvalid = isvalid_Name(profileData.firstname);
+        const phone_n_valid = isvalid_number(profileData.phone);
 
-        if (!email_isvalid || !name_isvalid) {
-          setNameEmailerror({
-            ...nameEmailerror,
+        if (!email_isvalid || !name_isvalid || !phone_n_valid) {
+          setInputError({
+            ...inputError,
             email: !email_isvalid,
             name: !name_isvalid,
+            phone: !phone_n_valid
           });
           setTimeout(() => {
-            setNameEmailerror({ ...nameEmailerror, email: false, name: false });
+            setInputError({ ...inputError, email: false, name: false, phone: false });
           }, 500);
           return;
         }
@@ -253,12 +257,14 @@ function ProfileScreen({ route, navigation }) {
         <View style={styles.inputContainer}>
           <Text style={styles.profileText}>First name</Text>
           <View
-            style={nameEmailerror.name ? styles.inputErr : styles.inputInner}
+            style={inputError.name ? styles.inputErr : styles.inputInner}
           >
             <TextInput
               onChangeText={updateFirstName}
               placeholder={profileData.firstname}
               style={styles.input}
+              autoCapitalize="none"
+              autoComplete="off"
             />
           </View>
           <Text style={styles.profileText}>Last name</Text>
@@ -267,20 +273,24 @@ function ProfileScreen({ route, navigation }) {
               onChangeText={updateLastName}
               style={styles.input}
               placeholder={profileData.lastname}
+              autoCapitalize="none"
+              autoComplete="off"
             />
           </View>
           <Text style={styles.profileText}>Email</Text>
           <View
-            style={nameEmailerror.email ? styles.inputErr : styles.inputInner}
+            style={inputError.email ? styles.inputErr : styles.inputInner}
           >
             <TextInput
               onChangeText={updateEmail}
               placeholder={profileData.email}
               style={styles.input}
+              autoCapitalize="none"
+              autoComplete="off"
             />
           </View>
           <Text style={styles.profileText}>Phone number</Text>
-          <View style={styles.inputInner}>
+          <View style={inputError.phone ? styles.inputErr : styles.inputInner}>
             <TextInput
               style={styles.input}
               onChangeText={updatePhone}
