@@ -9,6 +9,7 @@ import fetchCredentials from "./utilities/fetch.credentials";
 import ProfileScreen from "./screens/ProfileScreen";
 import { useFonts } from "expo-font";
 import { createDishesTable } from "./utilities/dishes.database";
+import { AppContext } from "./components/AppContext.component";
 
 const Stack = createNativeStackNavigator();
 
@@ -34,14 +35,6 @@ export default function App() {
     })();
   }, []);
 
-  const props = {
-    name: "Onboarding",
-  };
-
-  if (onboardingDone) {
-    props.name = "Home";
-  }
-
   if (!fontsLoaded) {
     return null;
   }
@@ -51,24 +44,31 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer theme={DarkTheme}>
-      <Stack.Navigator initialRouteName={props.name}>
-        <Stack.Screen
-          name="Onboarding"
-          component={OnboardingScreen}
-          initialParams={DarkTheme}
-        />
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          initialParams={DarkTheme}
-        />
-        <Stack.Screen
-          name="Profile"
-          component={ProfileScreen}
-          initialParams={DarkTheme}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <AppContext.Provider value={{ setOnboardingState: setOnboardingDone }}>
+      <NavigationContainer theme={DarkTheme}>
+        <Stack.Navigator>
+          {onboardingDone ? (
+            <>
+              <Stack.Screen
+                name="Home"
+                component={HomeScreen}
+                initialParams={DarkTheme}
+              />
+              <Stack.Screen
+                name="Profile"
+                component={ProfileScreen}
+                initialParams={DarkTheme}
+              />
+            </>
+          ) : (
+            <Stack.Screen
+              name="Onboarding"
+              component={OnboardingScreen}
+              initialParams={{ DarkTheme }}
+            />
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </AppContext.Provider>
   );
 }
