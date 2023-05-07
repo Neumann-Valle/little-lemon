@@ -86,6 +86,7 @@ function HomeScreen({ route, navigation }) {
     defaultCategories =
       categories.length > 0 ? [...categories] : defaultCategories;
     (async () => {
+      setRefreshing(true);
       const dishfound = await searchDishesData(dishQuery, defaultCategories);
       if (dishfound) {
         // todo, candidate to have its own function
@@ -95,20 +96,22 @@ function HomeScreen({ route, navigation }) {
         // update to refresh data
         setDishes([...dishes]);
       }
+      setTimeout(() => setRefreshing(false), 500);
     })();
   }
 
   /**
    * saves the category,
-   * then this is used to query
-   * the dishes database
+   * then this is along with
+   * query
    * @param {*} name
    */
   function handleCategorie(name) {
-    if (!categories.includes(name)) {
-      categories.push(name);
+    const index = categories.indexOf(name);
+    if (index > -1) {
+      categories.splice(index, 1);
     } else {
-      categories.pop(name);
+      categories.push(name);
     }
     setCategories([...categories]);
     handleFoodSearch();
