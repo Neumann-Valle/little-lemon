@@ -10,7 +10,6 @@ import isvalid_email from "../utilities/validate.email";
 import isvalid_Name from "../utilities/validate.name";
 import isvalid_number from "../utilities/validate.us.phone";
 import Cpressable from "../components/CustomPressable.component";
-import UpdatingScreen from "../components/Updating.component";
 import UserAvatar from "react-native-user-avatar";
 import { View, Text, TextInput, Image, ScrollView } from "react-native";
 import {
@@ -19,6 +18,7 @@ import {
   updateUserData,
   deleteUser,
 } from "../utilities/user.database";
+import SplashScreen from "./SplashScreen";
 
 function ProfileScreen({ route, navigation }) {
   const Context = useContext(AppContext);
@@ -222,7 +222,7 @@ function ProfileScreen({ route, navigation }) {
     );
 
   if (isSavingEdit) {
-    return <UpdatingScreen />;
+    return <SplashScreen />;
   }
 
   return (
