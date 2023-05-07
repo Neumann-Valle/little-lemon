@@ -44,7 +44,9 @@ export default function App() {
   }
 
   return (
-    <AppContext.Provider value={{ setOnboardingState: setOnboardingDone }}>
+    <AppContext.Provider
+      value={{ setOnboardingState: setOnboardingDone, loading: loading }}
+    >
       <NavigationContainer theme={DarkTheme}>
         <Stack.Navigator>
           {onboardingDone ? (
