@@ -358,7 +358,7 @@ function ProfileScreen({ route, navigation }) {
             onPress={discardEdits}
             activeOpacity={0.5}
           >
-            <Text style={styles.buttonText}>Discard changed</Text>
+            <Text style={styles.buttonText}>Discard changes</Text>
           </Cpressable>
           <Cpressable
             style={styles.buttonSave}
