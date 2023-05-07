@@ -56,7 +56,7 @@ function Header(props) {
       <UserAvatar
         size={64}
         name={
-          loginData.lastname !== ""
+          loginData.lastname && loginData.lastname !== ""
             ? `${loginData.firstname} ${loginData.lastname}`
             : loginData.firstname
         }
