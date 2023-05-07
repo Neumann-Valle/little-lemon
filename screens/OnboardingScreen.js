@@ -1,5 +1,6 @@
 import logo from "../assets/Logo.png";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AppContext } from "../components/AppContext.component";
 import storeCredentials from "../utilities/storage.store.credentials";
 import isvalid_email from "../utilities/validate.email";
 import isvalid_name from "../utilities/validate.name";
@@ -14,6 +15,7 @@ import {
 } from "react-native";
 
 function OnboardingScreen({ route, navigation }) {
+  const Context = useContext(AppContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [buttonActive, setButtonActive] = useState(false);
@@ -55,7 +57,8 @@ function OnboardingScreen({ route, navigation }) {
         console.log(credentials.err);
         return;
       }
-      navigation.navigate("Home");
+      // navigation.navigate("Home");
+      Context.setOnboardingState(true);
     }
 
     saveCredentials();
@@ -67,6 +70,7 @@ function OnboardingScreen({ route, navigation }) {
   };
 
   const inputLenght = 25;
+  // console.log(Context);
 
   return (
     <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
