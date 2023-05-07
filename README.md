@@ -13,5 +13,5 @@ https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en_US&gl=US&p
 # Description
 
 This is the project for the Meta React Specialization Capstone.
-requirements are to haven Onboard Screen, HomeScreen, ProfileScreen.
+requirements are to have Onboard Screen, HomeScreen, ProfileScreen.
 Save data internaly at first boot then fetch it after suscequent restarts.
