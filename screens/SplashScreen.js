@@ -1,25 +1,34 @@
-import * as React from "react";
-import { View, Text, Image } from "react-native";
+import { useContext } from "react";
+import { View, Text, Image, StyleSheet } from "react-native";
+import { AppContext } from "../components/AppContext.component";
 import logo from "../assets/Logo.png";
 
 function SplashScreen(navigator) {
+  const Context = useContext(AppContext);
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <View style={{
-        justifyContent: "center",
-        alignItems: "center",
-      }}>
-        <Image source={logo} resizeMode="cover"/>
-        <Text style={{fontFamily: "Karla-Regular",}}>Loading...</Text>
-      </View>
+    <View style={styles.container}>
+      <Image source={logo} resizeMode="cover" style={styles.image} />
+      <Text style={styles.text}>
+        {AppContext.loading ? "Loading..." : "Hang on, Updating profile!"}
+      </Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#121212",
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  image: {},
+  text: {
+    padding: 15,
+    fontFamily: "Markazy-Text",
+    color: "#fff",
+    fontSize: 20,
+  },
+});
 
 export default SplashScreen;
