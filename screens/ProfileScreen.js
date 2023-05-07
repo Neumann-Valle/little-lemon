@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { AppContext } from "../components/AppContext.component";
 import styles from "../components/styles/Profile.style";
 import Checkbox from "expo-checkbox";
 import fetchCredentials from "../utilities/fetch.credentials";
@@ -9,6 +10,7 @@ import isvalid_email from "../utilities/validate.email";
 import isvalid_Name from "../utilities/validate.name";
 import isvalid_number from "../utilities/validate.us.phone";
 import Cpressable from "../components/CustomPressable.component";
+import UpdatingScreen from "../components/Updating.component";
 import UserAvatar from "react-native-user-avatar";
 import { View, Text, TextInput, Image, ScrollView } from "react-native";
 import {
@@ -19,6 +21,7 @@ import {
 } from "../utilities/user.database";
 
 function ProfileScreen({ route, navigation }) {
+  const Context = useContext(AppContext);
   const [isSavingEdit, setIsSavingEdits] = useState(false);
   const [profileData, setProfileData] = useState({});
   const [notificationsOptions, setNotificationsOptions] = useState({
@@ -31,7 +34,7 @@ function ProfileScreen({ route, navigation }) {
   const [inputError, setInputError] = useState({
     name: false,
     email: false,
-    phone: false
+    phone: false,
   });
 
   useEffect(() => {
@@ -71,8 +74,6 @@ function ProfileScreen({ route, navigation }) {
         notificationsOptions.passwordchange = Boolean(uData.passwordchange);
         notificationsOptions.specialoffer = Boolean(uData.specialoffer);
 
-        // console.log(uData);
-
         setProfileData({ ...uData });
       } catch (error) {
         console.log(error);
@@ -103,7 +104,7 @@ function ProfileScreen({ route, navigation }) {
   function doLogout() {
     deleteUser();
     clearCredentials();
-    navigation.navigate("Onboarding");
+    Context.setOnboardingState(false);
   }
 
   /**
@@ -121,10 +122,15 @@ function ProfileScreen({ route, navigation }) {
             ...inputError,
             email: !email_isvalid,
             name: !name_isvalid,
-            phone: !phone_n_valid
+            phone: !phone_n_valid,
           });
           setTimeout(() => {
-            setInputError({ ...inputError, email: false, name: false, phone: false });
+            setInputError({
+              ...inputError,
+              email: false,
+              name: false,
+              phone: false,
+            });
           }, 500);
           return;
         }
@@ -216,18 +222,7 @@ function ProfileScreen({ route, navigation }) {
     );
 
   if (isSavingEdit) {
-    return (
-      <View
-        style={{
-          backgroundColor: "#121212",
-          flex: 1,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Text style={{ color: "white" }}>Updating profile!</Text>
-      </View>
-    );
+    return <UpdatingScreen />;
   }
 
   return (
@@ -256,9 +251,7 @@ function ProfileScreen({ route, navigation }) {
         </View>
         <View style={styles.inputContainer}>
           <Text style={styles.profileText}>First name</Text>
-          <View
-            style={inputError.name ? styles.inputErr : styles.inputInner}
-          >
+          <View style={inputError.name ? styles.inputErr : styles.inputInner}>
             <TextInput
               onChangeText={updateFirstName}
               placeholder={profileData.firstname}
@@ -278,9 +271,7 @@ function ProfileScreen({ route, navigation }) {
             />
           </View>
           <Text style={styles.profileText}>Email</Text>
-          <View
-            style={inputError.email ? styles.inputErr : styles.inputInner}
-          >
+          <View style={inputError.email ? styles.inputErr : styles.inputInner}>
             <TextInput
               onChangeText={updateEmail}
               placeholder={profileData.email}
