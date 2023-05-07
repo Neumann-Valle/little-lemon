@@ -70,7 +70,7 @@ export default StyleSheet.create({
     borderRadius: 5,
   },
   buttonPressed: {
-    backgroundColor: "#bb86fc",
+    backgroundColor: "grey",
     padding: 5,
     borderRadius: 5,
   },
