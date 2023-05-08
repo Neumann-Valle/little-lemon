@@ -22,4 +22,7 @@ Requirements are to have Onboard Screen, HomeScreen, ProfileScreen.
 Save data internally at first boot then fetch it after subsequent restarts.
 
 #### Wireframe
-![alt text](https://github.com/Neumann-Valle/little-lemon/blob/main/little-lemon-wireframe.jpg")
+![alt text](/little-lemon-wireframe.jpg?raw=true "Wireframe")
+
+#### Mockup
+![alt text](/little-lemon-final-mockup.jpg?raw=true "Mockup")
