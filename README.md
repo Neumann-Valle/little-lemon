@@ -1,8 +1,8 @@
-# little-lemon
+# Little-lemon
 
 Meta React Native Specialization Capstone.
 
-# Installation
+## Installation
 
 git clone https://github.com/Neumann-Valle/little-lemon
 then inside the project folder run command npm install.
@@ -13,10 +13,13 @@ npm start .
 Chose emulator or download the expo app
 https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en_US&gl=US&pli=1
 
-# Description
+### Description
 
 This is the project for the Meta React Specialization Capstone.
 </br>
-requirements are to have Onboard Screen, HomeScreen, ProfileScreen.
+Requirements are to have Onboard Screen, HomeScreen, ProfileScreen.
 </br>
-Save data internaly at first boot then fetch it after suscequent restarts.
+Save data internally at first boot then fetch it after subsequent restarts.
+
+#### Wireframe
+![alt text](https://github.com/Neumann-Valle/little-lemon/blob/main/little-lemon-wireframe.jpg")
